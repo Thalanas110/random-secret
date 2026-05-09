@@ -1,0 +1,416 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --cream: #fdf6ee;
+    --amber-light: #f5d99a;
+    --amber: #c8860a;
+    --amber-dark: #a06808;
+    --brown: #5c3d1e;
+    --brown-dark: #2e1508;
+    --text-soft: rgba(253,246,238,0.55);
+    --card-bg: rgba(253,246,238,0.16);
+    --card-hover-bg: rgba(253,246,238,0.32);
+    --card-border: rgba(200,134,10,0.28);
+    --shadow-warm: 0 10px 38px rgba(60,30,8,0.28);
+    --shadow-deep: 0 24px 70px rgba(20,8,2,0.55);
+}
+
+html, body { height: 100%; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--brown-dark);
+    color: var(--cream);
+    overflow-x: hidden;
+}
+
+/* Background */
+.bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+.bg-image {
+    position: absolute;
+    inset: 0;
+    background: url('/bg.jpeg') center 20% / cover no-repeat;
+    filter: brightness(0.68) saturate(1.1);
+}
+.bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+    155deg,
+    rgba(25,12,3,0.65) 0%,
+    rgba(50,25,8,0.42) 45%,
+    rgba(18,8,1,0.75) 100%
+    );
+}
+
+/* Page */
+.page-wrap {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 60px 24px 44px;
+}
+.header-eyebrow {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    color: var(--amber-light);
+    opacity: 0.8;
+    margin-bottom: 16px;
+}
+.header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 7vw, 70px);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+}
+.header-title em {
+    font-style: italic;
+    color: var(--amber-light);
+}
+.header-sub {
+    margin-top: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-soft);
+    letter-spacing: 0.02em;
+}
+.header-rule {
+    margin: 30px auto 0;
+    width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+
+/* Grid */
+.grid-section {
+    flex: 1;
+    padding: 0 clamp(16px, 5vw, 72px) 72px;
+}
+.poem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+    gap: 18px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* Card */
+.poem-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 26px 26px 22px;
+    cursor: pointer;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: background 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
+}
+.poem-card.appear {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.48s ease, transform 0.48s ease, background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.poem-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(245,217,154,0.07) 0%, transparent 55%);
+    pointer-events: none;
+}
+.poem-card:hover, .poem-card:focus-visible {
+    background: var(--card-hover-bg);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-warm);
+    border-color: rgba(200,134,10,0.52);
+    outline: none;
+}
+.poem-card:active { transform: translateY(-2px); }
+
+.card-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.20em;
+    color: var(--amber);
+    margin-bottom: 9px;
+    opacity: 0.88;
+}
+.card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1.22;
+    color: var(--cream);
+    margin-bottom: 11px;
+}
+.card-preview {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13.5px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--text-soft);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-footer {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-lang {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    background: rgba(200,134,10,0.12);
+    border: 1px solid rgba(200,134,10,0.22);
+    border-radius: 20px;
+    padding: 3px 10px;
+}
+.card-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,134,10,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--amber-light);
+    font-size: 12px;
+    margin-left: auto;
+    transition: background 0.2s, border-color 0.2s;
+}
+.poem-card:hover .card-arrow, .poem-card:focus-visible .card-arrow {
+    background: rgba(200,134,10,0.22);
+    border-color: var(--amber);
+}
+
+/* Viewer */
+.viewer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.32s ease;
+}
+.viewer-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+.viewer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(16,7,2,0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.viewer-panel {
+    position: relative;
+    z-index: 1;
+    width: min(680px, 100%);
+    max-height: 88vh;
+    background: linear-gradient(155deg, rgba(44,22,7,0.97) 0%, rgba(28,13,3,0.98) 100%);
+    border: 1px solid rgba(200,134,10,0.32);
+    border-radius: 20px;
+    box-shadow: var(--shadow-deep);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(28px) scale(0.96);
+    transition: transform 0.40s cubic-bezier(0.22,1,0.36,1);
+}
+.viewer-overlay.open .viewer-panel {
+    transform: translateY(0) scale(1);
+}
+
+.viewer-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 30px 32px 0;
+    flex-shrink: 0;
+}
+.viewer-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--amber);
+    margin-bottom: 7px;
+}
+.viewer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4.5vw, 32px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--cream);
+}
+.viewer-close {
+    flex-shrink: 0;
+    margin-left: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,134,10,0.28);
+    background: transparent;
+    color: rgba(253,246,238,0.65);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    line-height: 1;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.viewer-close:hover, .viewer-close:focus-visible {
+    background: rgba(200,134,10,0.18);
+    border-color: var(--amber);
+    color: var(--amber-light);
+    outline: none;
+}
+
+.viewer-rule {
+    margin: 22px 32px 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--amber), transparent);
+    opacity: 0.38;
+    flex-shrink: 0;
+}
+
+.viewer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px 32px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200,134,10,0.28) transparent;
+}
+.viewer-body::-webkit-scrollbar { width: 4px; }
+.viewer-body::-webkit-scrollbar-thumb { background: rgba(200,134,10,0.28); border-radius: 4px; }
+
+.poem-stanzas { display: flex; flex-direction: column; }
+.poem-stanza { margin-bottom: 28px; }
+.poem-stanza:last-child { margin-bottom: 0; }
+.poem-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2.6vw, 20px);
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(253,246,238,0.9);
+    letter-spacing: 0.01em;
+}
+
+.viewer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px 22px;
+    border-top: 1px solid rgba(200,134,10,0.14);
+    flex-shrink: 0;
+}
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: transparent;
+    border: 1px solid rgba(200,134,10,0.24);
+    border-radius: 40px;
+    padding: 8px 18px;
+    color: rgba(253,246,238,0.6);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.nav-btn:hover:not(:disabled), .nav-btn:focus-visible:not(:disabled) {
+    background: rgba(200,134,10,0.14);
+    border-color: var(--amber);
+    color: var(--amber-light);
+    outline: none;
+}
+.nav-btn:disabled { opacity: 0.24; cursor: not-allowed; }
+
+.nav-dots { display: flex; gap: 7px; align-items: center; }
+.nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(245,217,154,0.18);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    padding: 0;
+}
+.nav-dot.active {
+    background: var(--amber);
+    transform: scale(1.35);
+}
+
+/* Petals */
+.petals { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.petal {
+    position: absolute;
+    border-radius: 50% 0 50% 0;
+    background: rgba(245,217,154,0.12);
+    animation: floatPetal linear infinite;
+}
+@keyframes floatPetal {
+    0%   { transform: translateY(-30px) rotate(0deg); opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 0.4; }
+    100% { transform: translateY(105vh) rotate(400deg); opacity: 0; }
+}
+
+/* Footer */
+footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 24px 30px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(253,246,238,0.24);
+    letter-spacing: 0.04em;
+}
+
+@media (max-width: 520px) {
+    header { padding: 44px 18px 34px; }
+    .grid-section { padding: 0 12px 52px; }
+    .poem-grid { grid-template-columns: 1fr; gap: 12px; }
+    .viewer-head { padding: 22px 22px 0; }
+    .viewer-rule { margin: 18px 22px 0; }
+    .viewer-body { padding: 22px 22px 26px; }
+    .viewer-nav { padding: 14px 22px 18px; }
+    .nav-dots { display: none; }
+}

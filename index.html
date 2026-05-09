@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mother's Day Poems</title>
+  <meta name="description" content="A collection of eight poems for mothers who crossed every distance for love." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+</div>
+
+<div class="petals" id="petals"></div>
+
+<div class="page-wrap">
+  <header>
+    <p class="header-eyebrow">A Collection of Eight</p>
+    <h1 class="header-title">For the One Who <em>Never Let Go</em></h1>
+    <p class="header-sub">Poems for mothers who crossed every distance for love</p>
+    <div class="header-rule"></div>
+  </header>
+
+  <section class="grid-section">
+    <div class="poem-grid" id="poemGrid"></div>
+  </section>
+
+  <footer>Select a poem to read &ensp;&middot;&ensp; Happy Mother&rsquo;s Day</footer>
+</div>
+
+<div class="viewer-overlay" id="viewerOverlay" role="dialog" aria-modal="true">
+  <div class="viewer-backdrop" id="viewerBackdrop"></div>
+  <div class="viewer-panel">
+    <div class="viewer-head">
+      <div>
+        <p class="viewer-num" id="viewerNum"></p>
+        <h2 class="viewer-title" id="viewerTitle"></h2>
+      </div>
+      <button class="viewer-close" id="viewerClose" aria-label="Close">&#10005;</button>
+    </div>
+    <div class="viewer-rule"></div>
+    <div class="viewer-body">
+      <div class="poem-stanzas" id="viewerStanzas"></div>
+    </div>
+    <div class="viewer-nav">
+      <button class="nav-btn" id="navPrev">&#8592; Previous</button>
+      <div class="nav-dots" id="navDots"></div>
+      <button class="nav-btn" id="navNext">Next &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<script src="stuff.js"></script>
+</body>
+</html>
