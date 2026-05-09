@@ -99,6 +99,48 @@ const POEMS = [
 
 let current = -1;
 
+/* Lock timer logic */
+function initializeLockTimer() {
+    const unlockDate = new Date('2026-05-10T11:00:00+08:00'); // May 10, 2026 at 11:00am GMT+8
+    const lockOverlay = document.getElementById('lockOverlay');
+    
+    function updateTimer() {
+        const now = new Date();
+        const timeDiff = unlockDate - now;
+        
+        if (timeDiff <= 0) {
+            // Time has passed, hide the lock
+            lockOverlay.classList.add('hidden');
+            return;
+        }
+        
+        // Calculate time units
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        
+        // Update display
+        document.getElementById('timerDays').textContent = String(days).padStart(2, '0');
+        document.getElementById('timerHours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('timerMinutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('timerSeconds').textContent = String(seconds).padStart(2, '0');
+    }
+    
+    // Initial update
+    updateTimer();
+    
+    // Update every second
+    setInterval(updateTimer, 1000);
+}
+
+// Initialize lock timer when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLockTimer);
+} else {
+    initializeLockTimer();
+}
+
 /* Build grid */
 const grid = document.getElementById('poemGrid');
 POEMS.forEach((poem, i) => {
